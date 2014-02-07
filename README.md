@@ -36,8 +36,8 @@ signal:
                 delivered.send(sender=self, parlor=response.parlor)
 
 However, a signal's not much use if no one's around to receive it. Applications
-making use the pizza delivery library may register receivers with the dispatcher
-via the signal they intend to receive:
+making use of the pizza delivery library may register receivers with the
+dispatcher via the signal they intend to receive:
 
     delivered.connect(popup_window)
 
@@ -100,6 +100,6 @@ From source:
 Running tests
 -------------
 
-Run the package's tests via the setup.py file:
+Via the setup.py file:
 
     python setup.py test

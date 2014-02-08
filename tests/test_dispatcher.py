@@ -41,6 +41,13 @@ c_signal = Signal(providing_args=["val"])
 d_signal = Signal(providing_args=["val"], use_caching=True)
 
 
+class DebugSignal(Signal):
+
+    debug = True
+
+debug_signal = DebugSignal(providing_args=['val'])
+
+
 class DispatcherTests(unittest.TestCase):
     """Test suite for dispatcher (barely started)"""
 
@@ -159,6 +166,17 @@ class DispatcherTests(unittest.TestCase):
         a_signal.disconnect(receiver_1)
         self.assertFalse(a_signal.has_listeners())
         self.assertFalse(a_signal.has_listeners(sender=object()))
+
+    def test_debug_mode_on_callable(self):
+        self.assertRaises(AssertionError, debug_signal.connect, a_signal)
+
+    def test_debug_mode_on_kwargs(self):
+        self.assertRaises(AssertionError, debug_signal.connect, lambda: None)
+
+    def test_debug_mode_off(self):
+        a_signal.connect(a_signal)
+        a_signal.disconnect(a_signal)
+        self._testIsClean(a_signal)
 
 
 class ReceiverTestCase(unittest.TestCase):

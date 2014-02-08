@@ -1,6 +1,7 @@
 from __future__ import with_statement
 import os.path
 import re
+import sys
 
 import ez_setup
 ez_setup.use_setuptools()
@@ -23,12 +24,20 @@ def get_long_description():
         return None
 
 
+def get_py_modules():
+    """Don't include ez_setup on install."""
+    if len(sys.argv) >= 2 and sys.argv[1] == 'install':
+        return []
+    return ['ez_setup']
+
+
 setup(
     name="Paperboy",
     description="A simple fork of django.dispatch for use as a standalone "
                 "PubSub library.",
     long_description=get_long_description(),
     version=get_version(),
+    py_modules=get_py_modules(),
     packages=['dispatch'],
     install_requires=['six>=1.4.1'],
     test_suite='tests',

@@ -5,7 +5,7 @@ import textwrap
 import pypandoc
 
 
-def main(infile, outfile, save=False, force=False):
+def main(cmd, infile, outfile, save=False, force=False):
     assert force or not os.path.exists(outfile), "%s exists" % outfile
 
     output = pypandoc.convert(infile, 'rst')
@@ -13,7 +13,7 @@ def main(infile, outfile, save=False, force=False):
         fh.write(output)
 
     try:
-        subprocess.check_call(['python', 'setup.py', 'register'])
+        subprocess.check_call(['python', 'setup.py'] + cmd)
     finally:
         if not save:
             os.remove(outfile)
@@ -23,7 +23,11 @@ if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description=textwrap.dedent("""\
         Convert the project README, in Markdown, to reStructuredText, and
-        register the project with PyPI"""))
+        and run the given setup.py command"""))
+    parser.add_argument('cmd',
+        help='The setup.py command to run, with optional arguments, '
+             'e.g. sdist upload',
+        nargs='+')
     parser.add_argument('-i', '--infile',
         help="Input README (Markdown)",
         default='README.md')

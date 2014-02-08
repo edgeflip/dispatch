@@ -16,10 +16,18 @@ def get_version():
     return match.group(1)
 
 
+def get_long_description():
+    try:
+        return open('README.txt').read()
+    except IOError:
+        return None
+
+
 setup(
     name="Paperboy",
     description="A simple fork of django.dispatch for use as a standalone "
                 "PubSub library.",
+    long_description=get_long_description(),
     version=get_version(),
     packages=['dispatch'],
     install_requires=['six>=1.4.1'],

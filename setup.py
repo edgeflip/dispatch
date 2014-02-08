@@ -2,6 +2,9 @@ from __future__ import with_statement
 import os.path
 import re
 
+import ez_setup
+ez_setup.use_setuptools()
+
 from setuptools import setup
 
 
@@ -16,7 +19,7 @@ def get_version():
 setup(
     name="Paperboy",
     description="A simple fork of django.dispatch for use as a standalone "
-                "library.",
+                "PubSub library.",
     version=get_version(),
     packages=['dispatch'],
     install_requires=['six>=1.4.1'],

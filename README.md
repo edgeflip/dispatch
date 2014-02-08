@@ -1,7 +1,7 @@
 Paperboy
 ========
 
-A simple fork of `django.dispatch` for use as a standalone Python library.
+A simple fork of `django.dispatch` for use as a standalone Python PubSub library.
 
 
 Use
@@ -23,7 +23,7 @@ subscribed receivers that a pizza has been delivered:
 
     from dispatch import Signal
 
-    delivered = dispatch.Signal(providing_args=['parlor'])
+    delivered = Signal(providing_args=['parlor'])
 
 Upon learning that a pizza has been delivered, the library could then send this
 signal:

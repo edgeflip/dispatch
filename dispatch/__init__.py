@@ -8,4 +8,4 @@ Heavily modified for Django's purposes, and then split out of Django.
 """
 from dispatch.dispatcher import Signal, receiver
 
-__version__ = '1.0.0'
+__version__ = '1.0.1'
